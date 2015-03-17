@@ -38,7 +38,7 @@ class TestCoinDenominations extends FlatSpec with Matchers {
     println(denominations)
 
     denominations should have size 4
-    denominations should contain only (List(1,1,1,1), List(2,2), List(1,3), List(1,1,2))
+    denominations.map(_.sorted) should contain only (List(1,1,1,1), List(2,2), List(1,3), List(1,1,2))
   }
 
 }
