@@ -1,5 +1,7 @@
 package es.interviewcake.exercises.coin
 
+import scala.collection.immutable.HashMap
+
 /**
  * Created by guillermo on 16/03/15.
  */
@@ -53,6 +55,13 @@ object CoinDenominations {
 
   }
 
-  def dynamicApproach(amount: Int, denominations: List[Int]): List[List[Int]] = ???
+  def bottomUpApproach(amount: Int, denominations: List[Int]):List[List[Int]] = ???
+
+  def dynamicApproach(amount: Int, denominations: List[Int]): List[List[Int]] = {
+
+    //O(n) space, where n is the size of the amount
+    val waysOfDoingNCents = HashMap.empty[Int, List[List[Int]]]
+
+  }
 
 }
