@@ -28,3 +28,5 @@ def appendIfNew(target: List[List[Int]], source: List[Int]): List[List[Int]] = {
 }
 
 appendIfNew(ll, s1)
+
+Int.MaxValue > 0
