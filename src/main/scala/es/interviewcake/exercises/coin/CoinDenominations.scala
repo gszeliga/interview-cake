@@ -1,7 +1,6 @@
 package es.interviewcake.exercises.coin
 
 import scala.annotation.tailrec
-import scala.collection.immutable.HashMap
 
 /**
  * Created by guillermo on 16/03/15.
@@ -143,18 +142,30 @@ object CoinDenominations {
 
         (0 to targetAmount) foreach (amount => {
 
+          println(s"@[coin=$coin][amount=$amount][den=$coinDenomination]")
+
           b(amount)(coin) = EmptyCoinNode
 
           (0 to Math.floorDiv(amount, coinDenomination)) foreach (times => {
 
-            //Check previous solutions with reducing the current amount times number
+            println(s"\tWith k=$times => b[$coin][$amount]>b[${coin-1}][${amount-times*coinDenomination}]")
+
+            //Check previous solutions reducing the current amount 'times' number
             //of times our current denomination (coin)
-            if (b(amount)(coin).n > (b(amount - times * coinDenomination)(coin - 1)).n + times) {
 
-              val numberOfCoins: Int = b(amount - times * coinDenomination)(coin - 1).n + times
-              val previousSolution: Some[CoinNode] = Some(b(amount - times * coinDenomination)(coin - 1))
+            val solutionInProgress = b(amount)(coin)
+            val previousSolution = b(amount - times * coinDenomination)(coin - 1)
 
-              b(amount)(coin) = CoinNodeRef(coinDenomination,previousSolution,numberOfCoins,times)
+            //Case 1: When no solution is available (first time) or found a better solution in terms of number of coins
+            //Case 2: When current solution does not involve current coin but found equal solution that actually involves it
+            if (solutionInProgress.n > (previousSolution.n + times) ||
+              (solutionInProgress.times == 0 && times > 0 && solutionInProgress.n == previousSolution.n + times)) {
+
+              val numberOfCoins = previousSolution.n + times
+
+              b(amount)(coin) = CoinNodeRef(coinDenomination,Some(previousSolution),numberOfCoins,times)
+
+              println(s"\tUpdated b[$coin][$amount]=${b(amount)(coin)}")
             }
 
           })
