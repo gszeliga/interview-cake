@@ -32,7 +32,7 @@ object TwoEggs {
     println(s"# Egg broke between floors [$from-$to] after '${drops}' drops")
 
     //Return the maximum number of drop we need to find out up to which floor the egg won't break
-    (from + 1 until to).takeWhile(floor => floor <= highestNonBreakingFloor).foldLeft(drops)((acc,v) => acc + 1)
+    (from + 1 until to).takeWhile(floor => floor <= highestNonBreakingFloor).foldLeft(drops)((acc,_) => acc + 1)
 
   }
 
